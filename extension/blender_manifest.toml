@@ -1,0 +1,13 @@
+schema_version = "1.0.0"
+id = "seamwick_uv_free"
+version = "0.1.0"
+name = "Seamwick UV Free"
+tagline = "Match relative UV density and inspect it with a checker"
+maintainer = "yulei"
+type = "add-on"
+website = "https://github.com/yl124915300-dot/seamwick-uv-free"
+tags = ["UV"]
+blender_version_min = "4.5.14"
+platforms = ["macos-arm64"]
+license = ["SPDX:GPL-3.0-or-later"]
+copyright = ["2026 yulei"]
