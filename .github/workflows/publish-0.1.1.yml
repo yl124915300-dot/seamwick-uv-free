@@ -41,3 +41,14 @@ jobs:
             --title "Seamwick UV Free 0.1.1" \
             --notes-file release/0.1.1/NOTES.md \
             --latest
+      - name: Mark the affected old release as superseded
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if gh release view v0.1.0 >/dev/null 2>&1; then
+            gh release edit v0.1.0 \
+              --prerelease \
+              --title "Seamwick UV Free 0.1.0 (superseded)" \
+              --notes-file release/0.1.0/SUPERSEDED.md
+          fi
