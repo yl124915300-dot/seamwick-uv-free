@@ -47,7 +47,7 @@ In graphical Blender 4.5.14 LTS, native UI interaction confirmed the panel, chec
 
 ![Seamwick UV Free running in Blender 4.5.14 LTS](screenshots/free-workflow-blender-4.5.14.jpg)
 
-**Density normalization through the UI and its native Undo/Redo remain pending verification.** Successful scripted normalization does not establish a native GUI Undo result. GUI coverage has not been established for Blender 5.1.2 or 5.2.2.
+**0.1.0 density Undo failure:** a fresh graphical Blender 4.5.14 process opened a clean saved baseline, executed normalization, then Undo and Redo in separate event-loop callbacks. Undo retained the normalized UVs instead of restoring the baseline. Blender's built-in object translation passed Undo/Redo in the same harness, so this is a concrete extension defect rather than a successful Undo test. A corrective release is in progress. Do not use 0.1.0 density normalization on production meshes. Native keyboard verification of this operation remains pending because the Mac was locked. GUI coverage has not been established for Blender 5.1.2 or 5.2.2.
 
 ## Full-version preservation and coexistence
 

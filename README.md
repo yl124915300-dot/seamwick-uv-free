@@ -1,5 +1,7 @@
 # Seamwick UV Free
 
+**0.1.0 correction in progress:** graphical Blender 4.5.14 testing found that density normalization does not restore the original UVs on Undo. Do not use this operation on production meshes until the corrective release is available. The checker Undo and material restoration tests passed. See [QA](docs/QA.md) for the evidence and scope.
+
 Seamwick UV Free is a standalone Blender UV workflow utility. It matches the relative UV density of existing islands across selected mesh objects and provides a reversible procedural checker preview. It does not require the full Seamwick UV add-on.
 
 ![Seamwick UV Free workflow in Blender 4.5.14 LTS](docs/screenshots/free-workflow-blender-4.5.14.jpg)
