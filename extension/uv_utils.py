@@ -19,13 +19,24 @@ def uv_coordinates(layer, loop_count):
 
 
 def set_uv_coordinates(layer, coordinates):
-    attribute = getattr(layer, 'uv', None)
-    if attribute is not None:
-        for index, value in enumerate(coordinates):
-            attribute[index].vector = value
+    """Write through an attribute collection that makes shared data mutable.
+
+    Blender 4.5's MeshUVLoopLayer.uv accessors do not detach shared CustomData
+    before returning writable values. Direct writes through that view can also
+    change UV buffers retained by memfile Undo. The generic attribute data
+    iterator performs the required copy-on-write before foreach_set writes.
+    """
+    mesh = layer.id_data
+    if len(coordinates) != len(mesh.loops):
+        raise ValueError('UV coordinate count does not match mesh face corners')
+    flat = [value for coordinate in coordinates for value in coordinate]
+    attribute = mesh.attributes.get(layer.name)
+    if (attribute is not None and attribute.data_type == 'FLOAT2'
+            and attribute.domain == 'CORNER'):
+        attribute.data.foreach_set('vector', flat)
     else:
-        for index, value in enumerate(coordinates):
-            layer.data[index].uv = value
+        # The older collection also ensures mutable CustomData on iteration.
+        layer.data.foreach_set('uv', flat)
 
 
 def analyze_object(obj):

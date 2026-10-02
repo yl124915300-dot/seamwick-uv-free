@@ -9,3 +9,9 @@ Free normalizes actual UV-connected islands around their existing centers. It us
 Checker preview backs up effective and data material pointers, DATA/OBJECT slot links, face indices and active slot in persisted Blender PropertyGroups. Reapplying the checker retains the original backup. Restoration works after saved-file reopening when the extension is enabled. The checker uses an explicit UV Map shader node for the current active UV map. It uses no texture file, network request, data collection, or purchase UI.
 
 Original paid files were not edited. Compatibility and QA claims must be finalized only from actual Free-package tests.
+
+## 0.1.1 Undo correction
+
+The controlled 4.5.14 graphical Undo regression exposed shared UV buffer mutation in the original direct UV collection write. The patch uses the matching generic Float2 corner attribute data collection for writes, so Blender separates shared storage before modifying it. The mesh datablock, UV maps and normalization behavior are preserved. The corrected installed package passed the same regression and the three-version functional suite.
+
+Versioned Blender source shows the distinction in [UV collection access](https://github.com/blender/blender/blob/v4.5.14/source/blender/makesrna/intern/rna_mesh.cc#L1045) and [generic attribute data access](https://github.com/blender/blender/blob/v4.5.14/source/blender/makesrna/intern/rna_attribute.cc#L391).

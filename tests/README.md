@@ -10,7 +10,7 @@ The scripts require Blender's bundled Python and no external Python packages. Th
 
 Run from the repository root. Set `SW_BLENDER_BINARY` to the desired Blender executable if it is not available as `blender` on your command path. Use a separate `SW_TEST_ROOT` directory for each version. These commands are the macOS command-line test workflow; they are not evidence of Windows or Linux compatibility.
 
-Build the ZIP from this source checkout, or download the release ZIP and place it at `dist/seamwick_uv_free-0.1.0.zip`:
+Build the ZIP from this source checkout, or download the release ZIP and place it at `dist/seamwick_uv_free-0.1.1.zip`:
 
 ```bash
 python3 scripts/build_package.py
@@ -31,7 +31,7 @@ Validate the ZIP, configure the isolated local repository and install/enable the
 
 ```bash
 "$SW_BLENDER_BINARY" --background --factory-startup --offline-mode \
-  --command extension validate dist/seamwick_uv_free-0.1.0.zip
+  --command extension validate dist/seamwick_uv_free-0.1.1.zip
 
 "$SW_BLENDER_BINARY" --background --factory-startup --offline-mode \
   --command extension repo-add seamwick_free_qa \
@@ -40,7 +40,7 @@ Validate the ZIP, configure the isolated local repository and install/enable the
 
 "$SW_BLENDER_BINARY" --background --offline-mode \
   --command extension install-file -r seamwick_free_qa --enable \
-  dist/seamwick_uv_free-0.1.0.zip
+  dist/seamwick_uv_free-0.1.1.zip
 ```
 
 Run the functional checks and then the separate-process reopening check:

@@ -1,6 +1,6 @@
 schema_version = "1.0.0"
 id = "seamwick_uv_free"
-version = "0.1.0"
+version = "0.1.1"
 name = "Seamwick UV Free"
 tagline = "Match relative UV density and inspect it with a checker"
 maintainer = "yulei"

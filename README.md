@@ -1,6 +1,6 @@
 # Seamwick UV Free
 
-**0.1.0 correction in progress:** graphical Blender 4.5.14 testing found that density normalization does not restore the original UVs on Undo. Do not use this operation on production meshes until the corrective release is available. The checker Undo and material restoration tests passed. See [QA](docs/QA.md) for the evidence and scope.
+**Use 0.1.1:** it corrects density-normalization Undo on Blender 4.5 LTS. The previous 0.1.0 release is superseded. See [QA](docs/QA.md) for the regression result.
 
 Seamwick UV Free is a standalone Blender UV workflow utility. It matches the relative UV density of existing islands across selected mesh objects and provides a reversible procedural checker preview. It does not require the full Seamwick UV add-on.
 
@@ -8,7 +8,7 @@ Seamwick UV Free is a standalone Blender UV workflow utility. It matches the rel
 
 ## Workflow
 
-1. Download `seamwick_uv_free-0.1.0.zip` from [Releases](https://github.com/yl124915300-dot/seamwick-uv-free/releases/latest). Leave it zipped. Install it using **Preferences > Get Extensions > Install from Disk** and enable **Seamwick UV Free**.
+1. Download `seamwick_uv_free-0.1.1.zip` from [Releases](https://github.com/yl124915300-dot/seamwick-uv-free/releases/latest). Leave it zipped. Install it using **Preferences > Get Extensions > Install from Disk** and enable **Seamwick UV Free**.
 2. Select one or more mesh objects that already have valid UV maps. Open **3D Viewport > N > Seamwick Free**.
 3. Choose **Active Object** to use the active mesh's overall density, or **Selection Average** for the area-weighted density of all selected meshes.
 4. Click **Normalize Relative Density**. Every island in each selected object's active UV map is scaled around its existing UV corner-coordinate center. In Edit Mode this operates on all islands of the selected objects, regardless of component selection.
@@ -39,7 +39,7 @@ Copyright (C) 2026 yulei. The area-matching mathematical helpers are extracted f
 
 ## Free and full version
 
-| Workflow | Free 0.1.0 | Full 0.2.0 |
+| Workflow | Free 0.1.1 | Full 0.2.0 |
 | --- | --- | --- |
 | Relative UV density matching | Existing active UV islands | Integrated auto-UV workflow |
 | Procedural checker and material restoration | Yes | No |

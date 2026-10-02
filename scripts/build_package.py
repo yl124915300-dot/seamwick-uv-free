@@ -7,6 +7,7 @@ from pathlib import Path
 import hashlib
 import json
 import shutil
+import tomllib
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,7 +17,8 @@ DIST.mkdir(exist_ok=True)
 # Keep the extension's Free-only instructions separate from the repository's
 # comparison and optional Full-version link.
 shutil.copyfile(ROOT / 'THIRD_PARTY_NOTICES.md', SOURCE / 'THIRD_PARTY_NOTICES.md')
-path = DIST / 'seamwick_uv_free-0.1.0.zip'
+manifest = tomllib.loads((SOURCE / 'blender_manifest.toml').read_text(encoding='utf-8'))
+path = DIST / f"seamwick_uv_free-{manifest['version']}.zip"
 files = sorted(
     item for item in SOURCE.iterdir()
     if item.is_file() and (item.suffix in {'.py', '.toml', '.md'} or item.name == 'LICENSE')

@@ -1,4 +1,4 @@
-# Seamwick UV Free 0.1.0 QA
+# Seamwick UV Free 0.1.1 QA
 
 Test date: 2026-10-02. Runtime platform: macOS Apple Silicon (`macos-arm64`).
 
@@ -12,10 +12,10 @@ Test date: 2026-10-02. Runtime platform: macOS Apple Silicon (`macos-arm64`).
 
 Each run used a separate Blender user configuration and local extension repository. Tests imported the installed extension, rather than importing its source directory. Installed Python file hashes matched the tested release source.
 
-The final release ZIP was validated, installed and enabled again on all three versions after a documentation-only package update. Its Python source hashes matched the source that passed the functional and reopening tests. Final ZIP SHA256:
+The exact 0.1.1 ZIP was validated, installed and enabled on all three versions. Each installed package passed the complete functional and separate-process reopening suites; installed Python source hashes matched the release source. Final ZIP SHA256:
 
 ```text
-385fe75ff23c1db5fb93c3ab13dca167e74ecb0d3ce720e2c8ea25a88ef26876
+eb4e5d73e71b6685607c6df70bd148154f4d9529a61a8a40c4ee900be2bfb04b
 ```
 
 ## Functional coverage
@@ -41,13 +41,17 @@ The following 16 checks passed separately on each listed Blender version:
 
 Fresh Blender processes then reopened the saved scenes. Each version confirmed extension enablement, preservation of normalized UV coordinates, successful checker removal and restoration of original material slots, face indices, DATA/OBJECT links and effective object-linked material assignments.
 
-## Graphical checks
+## Graphical checks and Undo regression
 
-In graphical Blender 4.5.14 LTS, native UI interaction confirmed the panel, checker application, checker Undo/Redo and **Restore Original Materials**. The screenshot below shows the actual Free extension workflow in Blender.
+In graphical Blender 4.5.14 LTS, a fresh process opened a clean saved UV baseline, executed the installed 0.1.1 density-normalization operator, and called real Blender Undo and Redo in separate event-loop callbacks. Undo restored every UV coordinate exactly to the baseline; Redo restored every normalized UV coordinate exactly. A built-in object translation passed Undo/Redo under the same conditions. Global Undo was enabled.
+
+The same controlled test failed density Undo for 0.1.0 while the built-in translation passed. The corrective release writes through Blender's generic UV attribute data collection, which requests mutable storage before changing the UV buffer. This separates data retained by old Undo states. The patch does not replace the mesh or add dummy state. The current 0.1.1 release supersedes 0.1.0.
+
+Native panel clicks and keyboard shortcuts during the earlier 0.1.0 test confirmed checker application, checker Undo/Redo, Restore Materials and restore Undo in graphical 4.5.14. The checker/operator UI code is unchanged in 0.1.1. The image below is the actual Free workflow captured during that test; it is a product screenshot, not evidence of a keyboard test of the patch.
 
 ![Seamwick UV Free running in Blender 4.5.14 LTS](screenshots/free-workflow-blender-4.5.14.jpg)
 
-**0.1.0 density Undo failure:** a fresh graphical Blender 4.5.14 process opened a clean saved baseline, executed normalization, then Undo and Redo in separate event-loop callbacks. Undo retained the normalized UVs instead of restoring the baseline. Blender's built-in object translation passed Undo/Redo in the same harness, so this is a concrete extension defect rather than a successful Undo test. A corrective release is in progress. Do not use 0.1.0 density normalization on production meshes. Native keyboard verification of this operation remains pending because the Mac was locked. GUI coverage has not been established for Blender 5.1.2 or 5.2.2.
+0.1.1 density Undo/Redo was verified through the real graphical Blender API, not native keyboard input. Native keyboard testing of the patch was unavailable because the Mac was locked. GUI coverage has not been established for Blender 5.1.2 or 5.2.2.
 
 ## Full-version preservation and coexistence
 
